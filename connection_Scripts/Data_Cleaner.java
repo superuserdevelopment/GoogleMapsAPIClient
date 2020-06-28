@@ -8,32 +8,33 @@ public class Data_Cleaner {
     }
 
     //Returns Distance between the two points in meters
-    public double getDistance(){
+    public String getDistance(){
 		String s = jsonString;
-		s = s.substring(s.indexOf("distance"), s.indexOf("duration"));
+		s = s.substring(s.indexOf("Distance"));
 		// System.out.println(s.substring(s.indexOf(":\"")+2, s.indexOf(",")-1));
 		// System.out.println(s.substring(s.indexOf("value")+7, s.indexOf("}"))+"m");
-		return Double.parseDouble(s.substring(s.indexOf("value")+7, s.indexOf("}")));
+		return s.substring(11, s.indexOf("}")-1);
+		
     }
     
     //Returns the driving time between the two points
     public String getDuration(){
 		String s = jsonString;
-		s = s.substring(s.indexOf("duration"), s.indexOf("end_address"));
-		return (s.substring(s.indexOf("text")+7, s.indexOf(",")-1));
+		s = s.substring(s.indexOf("Duration"), s.indexOf("EndingLocation"));
+		return (s.substring(11, s.indexOf(",")-1));
     }
     
     //Returns the start point
     public String getStartPoint(){
 		String s = jsonString;
-		s = s.substring(s.indexOf("start_address")+16, s.indexOf("steps"));
+		s = s.substring(s.indexOf("StartingLocation")+19, s.indexOf("Duration"));
 		return s.substring(0, s.indexOf("\","));
     }
     
     //Returns the end point
     public String getEndPoint(){
 		String s = jsonString;
-		s = s.substring(s.indexOf("end_address")+14, s.indexOf("start_address"));
+		s = s.substring(s.indexOf("EndingLocation")+17, s.indexOf("Distance"));
 		return s.substring(0, s.indexOf("\","));
     }
     

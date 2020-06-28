@@ -13,18 +13,20 @@ public class CommandLine {
         pointA = sc.next();
         System.out.println("Enter Ending Point:");
         pointB = sc.next();
-        urlString = "https://maps.googleapis.com/maps/api/directions/json?origin="+pointA+"&destination="+pointB+"&key="+apiKey;
+        // urlString = "https://maps.googleapis.com/maps/api/directions/json?origin="+pointA+"&destination="+pointB+"&key="+apiKey;
+        urlString = "http://localhost:8080/distance/json/"+pointA+"to"+pointB;
         String response = getter.getResponse(urlString);
         // System.out.println(response);
         if(!(response.startsWith("Error"))){
         try{
             Data_Cleaner jsonObj = new Data_Cleaner(response);
-	        System.out.println("Distance: " + jsonObj.getDistance()/1000+"km");
+	        System.out.println("Distance: " + jsonObj.getDistance());
 		    System.out.println("Time of Travel: " + jsonObj.getDuration());
 		    System.out.println("Start Point: " + jsonObj.getStartPoint());
             System.out.println("End Point: " + jsonObj.getEndPoint());
         }
         catch(Exception e){
+            System.out.println(e.toString());
             System.out.println("Misformatted Inputs");
         }
     }
